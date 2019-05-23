@@ -1,0 +1,9 @@
+fos_rest:
+    view:
+        view_response_listener: true
+    body_listener:
+        enabled: true
+    format_listener:
+        rules:
+            - { host: api.QAAM.fr, path: ^/ , prefer_extension: true, fallback_format: json, priorities: [ json] }
+            - { host: QAAM.fr, path: ^/ , priorities: [ html], fallback_format: html }
