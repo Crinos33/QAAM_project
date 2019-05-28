@@ -42,3 +42,7 @@ services:
               arguments: [1]
             - method: setCircularReferenceHandler
               arguments: ["@circular_reference_handler"]
+
+    form.type.model.listitemType:
+        class: App\Form\ListitemType
+        arguments: ["@doctrine.orm.entity_manager"]

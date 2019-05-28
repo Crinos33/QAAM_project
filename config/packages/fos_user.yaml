@@ -2,6 +2,15 @@ fos_user:
     db_driver: orm
     firewall_name: main
     user_class: App\Entity\User
+    registration:
+        confirmation:
+            enabled: true
+            template: FOSUserBundle:Registration:email.txt.twig
+    service:
+        mailer: fos_user.mailer.twig_swift
+    resetting:
+        email:
+            template: FOSUserBundle:Resetting:email.txt.twig
     from_email:
-        address: "contact@upload.fr"
-        sender_name: "contact@upload.fr"
+        address: "contact@QAAM.fr"
+        sender_name: "contact@QAAM.fr"

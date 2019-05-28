@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Survey{% endblock %}
+
+{% block body %}
+    <h1>Create new Survey</h1>
+
+    {{ include('survey/_form.html.twig') }}
+
+    <a href="{{ path('survey_index') }}">back to list</a>
+{% endblock %}

@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ImageRepository")
@@ -19,38 +20,38 @@ class Image
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $imgPath;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
     private $path;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
+    private $img_path;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $alt;
+
+    /**
+     * @Assert\File(mimeTypes={ "application/pdf", "application/x-pdf", "image/jpg", "image/png", "image/jpeg", "image/gif"})
+     */
+    private $file;
+
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    public function setFile($file)
+    {
+        $this->file = $file;
+
+        return $this;
+    }
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getImgPath(): ?string
-    {
-        return $this->imgPath;
-    }
-
-    public function setImgPath(string $imgPath): self
-    {
-        $this->imgPath = $imgPath;
-
-        return $this;
     }
 
     public function getPath(): ?string
@@ -65,14 +66,14 @@ class Image
         return $this;
     }
 
-    public function getName(): ?string
+    public function getImgPath(): ?string
     {
-        return $this->name;
+        return $this->img_path;
     }
 
-    public function setName(string $name): self
+    public function setImgPath(string $img_path): self
     {
-        $this->name = $name;
+        $this->img_path = $img_path;
 
         return $this;
     }
@@ -82,7 +83,7 @@ class Image
         return $this->alt;
     }
 
-    public function setAlt(string $alt): self
+    public function setAlt(?string $alt): self
     {
         $this->alt = $alt;
 

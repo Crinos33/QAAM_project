@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Survey{% endblock %}
+
+{% block body %}
+    <h1>Edit Survey</h1>
+
+    {{ include('survey/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('survey_index') }}">back to list</a>
+
+    {{ include('survey/_delete_form.html.twig') }}
+{% endblock %}

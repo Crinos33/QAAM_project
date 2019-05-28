@@ -6,7 +6,14 @@
 
 
 {% block body %}
-    <h1>QAAM</h1>
+    <h1>Formulaire d'inscription</h1>
+
+    {% if is_granted("IS_AUTHENTICATED_FULLY") %}
+        <h3>Tu es connecté : {{ app.user.username }} {% if is_granted("ROLE_ADMIN") %} (Mode Administrateur) {% endif %}</h3>
+        <h6><a href="{{ path("fos_user_security_logout") }}">Deconnecté</a></h6>
+    {% else %}
+        <h6><a href="{{ path("fos_user_security_login") }}">Connecté</a></h6>
+    {% endif %}
 
 
 {% endblock %}
