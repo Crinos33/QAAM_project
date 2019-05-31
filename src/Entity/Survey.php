@@ -41,6 +41,12 @@ class Survey
      */
     private $restaurant_id;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="surveys")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -102,6 +108,18 @@ class Survey
     public function setRestaurantId(int $restaurant_id): self
     {
         $this->restaurant_id = $restaurant_id;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

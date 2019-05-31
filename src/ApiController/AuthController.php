@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use FOS\UserBundle\Model\UserManagerInterface;
 /**
- * @Rest\Route("/auth", host="api.QAAM.fr")
+ * @Rest\Route("/auth", host="api.qaam.fr")
  */
 class AuthController extends AbstractFOSRestController
 {

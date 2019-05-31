@@ -3,6 +3,8 @@ fos_user:
     firewall_name: main
     user_class: App\Entity\User
     registration:
+        form:
+            type: App\Form\RegistrationType
         confirmation:
             enabled: true
             template: FOSUserBundle:Registration:email.txt.twig
@@ -12,5 +14,5 @@ fos_user:
         email:
             template: FOSUserBundle:Resetting:email.txt.twig
     from_email:
-        address: "contact@QAAM.fr"
-        sender_name: "contact@QAAM.fr"
+        address: "contact@qaam.fr"
+        sender_name: "contact@qaam.fr"

@@ -4,16 +4,99 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
     <title>{% block title %}QAAM "Qui a à Manger"{% endblock %}</title>
     {% block stylesheets %}{% endblock %}
 </head>
 <body>
+<header>
+
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top scrolling-navbar">
+        <div class="container">
+            <a class="navbar-brand" href="">
+                <strong>QAAM</strong>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-7" aria-controls="navbarSupportedContent-7" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent-7">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('user_index') }}">User</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('survey_index') }}">Survey</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('restaurant_index') }}">Restaurant</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('procurement_type_index') }}">Procurement</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('image_index') }}">Image</a>
+                    </li>
+                </ul>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <div class="view" style="background-image: url('https://i.goopics.net/gdWOD.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
+
+        <div class="mask rgba-gradient align-items-center">
+
+            <div class="container">
+
+                <div class="row">
+
+                    <div class="col-md-6 white-text text-center text-md-left mt-xl-5 mb-5 wow fadeInLeft" data-wow-delay="0.3s">
+                        <h1 class="h1-responsive font-weight-bold mt-sm-5"></h1>
+                        <hr class="hr-light">
+                        <h6 class="mb-4"></h6>
+                    </div>
+
+                    <div class="col-md-6 col-xl-5 mt-xl-5 wow fadeInRight" data-wow-delay="0.3s">
+                        <img src="https://ad962edbae8ba7b03b7f-d10007df79b5b7a4e475a291e50a08cf.ssl.cf3.rackcdn.com/logo-food-truck/logo-food-truck.jpg" alt="" class="img-fluid">
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</header>
+
+<main>
+    <div class="container">
+
+        <div class="row py-5">
+
+            <div class="col-md-12 text-center">
+                <p></p>
+            </div>
+
+        </div>
+
+    </div>
+</main>
+    <br>
+<div class="bg"></div>
 {% block body %}
 
-    
 {% endblock %}
 <script src="{{ asset('asset/jquery.min.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 {% block javascripts %}{% endblock %}
 </body>
 </html>

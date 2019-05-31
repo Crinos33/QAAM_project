@@ -1,14 +1,14 @@
 controllers:
-    host: 'QAAM.fr'
+    host: 'qaam.fr'
     resource: ../../src/Controller/
     type: annotation
 
 api_auth_login:
-    host: 'api.QAAM.fr'
+    host: 'api.qaam.fr'
     path: /login_check
     methods: [POST]
 
 api_controllers:
-    host: 'api.QAAM.fr'
+    host: 'api.qaam.fr'
     resource: ../../src/ApiController/
     type: annotation

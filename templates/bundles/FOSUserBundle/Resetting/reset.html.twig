@@ -1,0 +1,6 @@
+{# templates/bundles/FOSUserBundle/Registration/confirmed.html.twig #}
+{# the special '!' prefix avoids errors when extending from an overridden template #}
+{# extends "@!FOSUser/Resetting/reset.html.twig" #}
+{% block fos_user_content %}
+    {% include "@FOSUser/Resetting/reset_content.html.twig" %}
+{% endblock fos_user_content %}

@@ -16,7 +16,7 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         login:
-            host: api\.QAAM\.fr
+            host: api\.qaam\.fr
             pattern: ^/login
             stateless: true
             anonymous: true
@@ -26,7 +26,7 @@ security:
                 failure_handler: lexik_jwt_authentication.handler.authentication_failure
 
         api:
-            host: api\.QAAM\.fr
+            host: api\.qaam\.fr
             pattern: ^/
             stateless: true
             anonymous: false

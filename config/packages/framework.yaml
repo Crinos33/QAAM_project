@@ -18,3 +18,6 @@ framework:
         engines: ['twig', 'php']
     php_errors:
         log: true
+
+    translator:
+        enabled: true

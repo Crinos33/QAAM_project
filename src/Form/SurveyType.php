@@ -17,6 +17,7 @@ class SurveyType extends AbstractType
             ->add('created_at')
             ->add('updated_at')
             ->add('restaurant_id')
+            ->add('user')
         ;
     }
 

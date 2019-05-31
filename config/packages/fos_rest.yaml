@@ -5,5 +5,5 @@ fos_rest:
         enabled: true
     format_listener:
         rules:
-            - { host: api.QAAM.fr, path: ^/ , prefer_extension: true, fallback_format: json, priorities: [ json] }
-            - { host: QAAM.fr, path: ^/ , priorities: [ html], fallback_format: html }
+            - { host: api.qaam.fr, path: ^/ , prefer_extension: true, fallback_format: json, priorities: [ json] }
+            - { host: qaam.fr, path: ^/ , priorities: [ html], fallback_format: html }
