@@ -19,8 +19,10 @@
                 <td>{{ procurement_type.id }}</td>
                 <td>{{ procurement_type.name }}</td>
                 <td>
-                    <a href="{{ path('procurement_type_show', {'id': procurement_type.id}) }}">show</a>
-                    <a href="{{ path('procurement_type_edit', {'id': procurement_type.id}) }}">edit</a>
+                    <button class="btn btn-light">
+                        <a href="{{ path('procurement_type_show', {'id': procurement_type.id}) }}">show</a></button>
+                    <button class="btn btn-light">
+                        <a href="{{ path('procurement_type_edit', {'id': procurement_type.id}) }}">edit</a></button>
                 </td>
             </tr>
         {% else %}
@@ -30,6 +32,6 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('procurement_type_new') }}">Create new</a>
+<button class="btn btn-dark">
+    <a href="{{ path('procurement_type_new') }}">Create new</a></button>
 {% endblock %}

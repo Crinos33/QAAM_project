@@ -45,10 +45,10 @@
             </tr>
         </tbody>
     </table>
-
-    <a href="{{ path('restaurant_index') }}">back to list</a>
-
-    <a href="{{ path('restaurant_edit', {'id': restaurant.id}) }}">edit</a>
+<button class="btn btn-dark">
+    <a href="{{ path('restaurant_index') }}">back to list</a></button>
+    <button class="btn btn-dark">
+        <a href="{{ path('restaurant_edit', {'id': restaurant.id}) }}">edit</a></button>
 
     {{ include('restaurant/_delete_form.html.twig') }}
 {% endblock %}

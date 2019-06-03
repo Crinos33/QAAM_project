@@ -1,5 +1,5 @@
 controllers:
-    host: 'qaam.fr'
+    host: 'admin.qaam.fr'
     resource: ../../src/Controller/
     type: annotation
 

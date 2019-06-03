@@ -33,10 +33,10 @@
             </tr>
         </tbody>
     </table>
-
-    <a href="{{ path('survey_index') }}">back to list</a>
-
-    <a href="{{ path('survey_edit', {'id': survey.id}) }}">edit</a>
+<button class="btn btn-dark">
+    <a href="{{ path('survey_index') }}">back to list</a></button>
+<button class="btn btn-dark">
+    <a href="{{ path('survey_edit', {'id': survey.id}) }}">edit</a></button>
 
     {{ include('survey/_delete_form.html.twig') }}
 {% endblock %}

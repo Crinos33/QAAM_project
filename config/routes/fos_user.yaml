@@ -1,2 +1,3 @@
 fos_user:
+    host: 'admin.qaam.fr'
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"

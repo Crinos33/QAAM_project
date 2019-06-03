@@ -11,7 +11,6 @@
                 <th>Id</th>
                 <th>ImgPath</th>
                 <th>Path</th>
-                <th>Name</th>
                 <th>Alt</th>
                 <th>actions</th>
             </tr>
@@ -20,13 +19,15 @@
         {% for image in images %}
             <tr>
                 <td>{{ image.id }}</td>
+                <td><img src="{{ asset(image.imgpath) }}" width="100px "/></td>
                 <td>{{ image.imgPath }}</td>
                 <td>{{ image.path }}</td>
-                <td>{{ image.name }}</td>
                 <td>{{ image.alt }}</td>
                 <td>
-                    <a href="{{ path('image_show', {'id': image.id}) }}">show</a>
-                    <a href="{{ path('image_edit', {'id': image.id}) }}">edit</a>
+                    <button class="btn btn-light">
+                        <a href="{{ path('image_show', {'id': image.id}) }}">show</a></button>
+                    <button class="btn btn-light">
+                        <a href="{{ path('image_edit', {'id': image.id}) }}">edit</a></button>
                 </td>
             </tr>
         {% else %}
@@ -36,6 +37,6 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('image_new') }}">Create new</a>
+<button class="btn btn-dark">
+    <a href="{{ path('image_new') }}">Create new</a></button>
 {% endblock %}

@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/restaurant")
+ * @Route("/restaurant", host="admin.qaam.fr")
  */
 class RestaurantController extends AbstractController
 {

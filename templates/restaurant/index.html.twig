@@ -33,8 +33,10 @@
                 <td>{{ restaurant.latitude }}</td>
                 <td>{{ restaurant.address }}</td>
                 <td>
-                    <a href="{{ path('restaurant_show', {'id': restaurant.id}) }}">show</a>
-                    <a href="{{ path('restaurant_edit', {'id': restaurant.id}) }}">edit</a>
+                    <button class="btn btn-light">
+                        <a href="{{ path('restaurant_show', {'id': restaurant.id}) }}">show</a></button>
+                    <button class="btn btn-light">
+                        <a href="{{ path('restaurant_edit', {'id': restaurant.id}) }}">edit</a></button>
                 </td>
             </tr>
         {% else %}
@@ -44,6 +46,6 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('restaurant_new') }}">Create new</a>
+<button class="btn btn-dark">
+    <a href="{{ path('restaurant_new') }}">Create new</a></button>
 {% endblock %}

@@ -24,8 +24,10 @@
                 <td>{{ user.enabled ? 'Yes' : 'No' }}</td>
                 <td>{{ user.password }}</td>
                 <td>
-                    <a href="{{ path('user_show', {'id': user.id}) }}">show</a>
-                    <a href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
+                    <button class="btn btn-light">
+                    <a href="{{ path('user_show', {'id': user.id}) }}">show</a></button>
+                    <button class="btn btn-light">
+                    <a href="{{ path('user_edit', {'id': user.id}) }}">edit</a></button>
                 </td>
             </tr>
         {% else %}
@@ -35,6 +37,6 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('user_new') }}">Create new</a>
+<button class="btn btn-dark">
+    <a href="{{ path('user_new') }}">Create new</a></button>
 {% endblock %}

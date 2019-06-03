@@ -5,17 +5,18 @@ namespace App\Controller;
 
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-//use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Routing\Annotation\Route;
 
 
-
+/**
+ * @Route("/", host="admin.qaam.fr")
+ */
 class DefaultController extends AbstractController
-
 {
 
     /**
-     * @Route("/", name="accueil")
+     * @Route("/", name="index")
      */
     public function index()
     {
@@ -27,8 +28,8 @@ class DefaultController extends AbstractController
 
     /**
      * @Route("/admin", name="homeAdmin")
+     * @IsGranted("ROLE_ADMIN")
      */
-    //@IsGranted("ROLE_ADMIN")                                                      Autre facon de proteger.
     public function indexAdmin()
     {
         //$this->denyAccessUnlessGranted("ROLE_ADMIN");                             Autre facon de proteger trop noob

@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/image")
+ * @Route("/image" , host="admin.qaam.fr")
  */
 class ImageController extends AbstractController
 {
@@ -33,15 +33,15 @@ class ImageController extends AbstractController
     {
         $image = new Image();
         $form = $this->createForm(ImageType::class, $image);
-        $form->handleRequest($request);
+                $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+                if ($form->isSubmitted() && $form->isValid()) {
 
-            /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
-            $file = $form->get('file')->getData();
+                    /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
+                    $file = $form->get('file')->getData();
 
-            if ($file) {
-                $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
+                    if ($file) {
+                        $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
 
                 // Move the file to the directory where brochures are stored
                 try {

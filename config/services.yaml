@@ -5,6 +5,8 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: 'en'
+    image_abs_path: '%kernel.project_dir%/public/uploads/img-task'
+    image_path: '/uploads/img-task'
 
 services:
     # default configuration for services in *this* file
