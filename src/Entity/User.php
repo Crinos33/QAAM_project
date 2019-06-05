@@ -23,7 +23,7 @@ class User extends BaseUser
 
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Survey", mappedBy="user", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Survey", mappedBy="user", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $surveys;
 

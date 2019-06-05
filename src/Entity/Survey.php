@@ -2,10 +2,13 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\SurveyRepository")
+ * @ORM\HasLifecycleCallbacks
  */
 class Survey
 {
@@ -22,11 +25,6 @@ class Survey
     private $ownFood;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $procurementType_id;
-
-    /**
      * @ORM\Column(type="datetime")
      */
     private $created_at;
@@ -37,15 +35,34 @@ class Survey
     private $updated_at;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $restaurant_id;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="surveys")
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Restaurant", inversedBy="surveys")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $restaurant;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Procurement")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $procurement;
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function updatedTimestamps(): void
+    {
+        $this->setUpdatedAt(new \DateTime('now'));
+        if ($this->getCreatedAt() === null) {
+            $this->setCreatedAt(new \DateTime('now'));
+        }
+    }
 
     public function getId(): ?int
     {
@@ -60,18 +77,6 @@ class Survey
     public function setOwnFood(bool $ownFood): self
     {
         $this->ownFood = $ownFood;
-
-        return $this;
-    }
-
-    public function getProcurementTypeId(): ?int
-    {
-        return $this->procurementType_id;
-    }
-
-    public function setProcurementTypeId(int $procurementType_id): self
-    {
-        $this->procurementType_id = $procurementType_id;
 
         return $this;
     }
@@ -100,18 +105,6 @@ class Survey
         return $this;
     }
 
-    public function getRestaurantId(): ?int
-    {
-        return $this->restaurant_id;
-    }
-
-    public function setRestaurantId(int $restaurant_id): self
-    {
-        $this->restaurant_id = $restaurant_id;
-
-        return $this;
-    }
-
     public function getUser(): ?User
     {
         return $this->user;
@@ -123,4 +116,29 @@ class Survey
 
         return $this;
     }
+
+    public function getRestaurant(): ?Restaurant
+    {
+        return $this->restaurant;
+    }
+
+    public function setRestaurant(?Restaurant $restaurant): self
+    {
+        $this->restaurant = $restaurant;
+
+        return $this;
+    }
+
+    public function getProcurement(): ?Procurement
+    {
+        return $this->procurement;
+    }
+
+    public function setProcurement(?Procurement $procurement): self
+    {
+        $this->procurement = $procurement;
+
+        return $this;
+    }
+
 }

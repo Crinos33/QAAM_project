@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Procurement;
 use App\Entity\Survey;
 use App\Form\SurveyType;
+use App\Repository\ProcurementRepository;
 use App\Repository\SurveyRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -11,7 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/survey", host="admin.qaam.fr")
+ * @Route("/survey")
  */
 class SurveyController extends AbstractController
 {
@@ -35,6 +37,12 @@ class SurveyController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $survey->setOwnFood(false);
+            $procurement = $survey->getProcurement();
+            if ($procurement->getValue() === Procurement::FROM_HOME) {
+                $survey->setOwnFood(true);
+            }
+            $survey->setUser($this->getUser());
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($survey);
             $entityManager->flush();

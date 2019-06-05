@@ -13,7 +13,6 @@
                 <th>ExternalLink</th>
                 <th>OnSite</th>
                 <th>Shop</th>
-                <th>Image_id</th>
                 <th>Longitude</th>
                 <th>Latitude</th>
                 <th>Address</th>
@@ -24,28 +23,30 @@
         {% for restaurant in restaurants %}
             <tr>
                 <td>{{ restaurant.id }}</td>
-                <td>{{ restaurant.name }}</td>
+                <td>
+                    {{ restaurant.name }}
+                    {% if  restaurant.image %}
+                    <img src="{{ asset(restaurant.image.imgpath) }}" width="200px"/>
+                    {% endif %}
+                </td>
                 <td>{{ restaurant.externalLink }}</td>
                 <td>{{ restaurant.onSite ? 'Yes' : 'No' }}</td>
                 <td>{{ restaurant.shop ? 'Yes' : 'No' }}</td>
-                <td>{{ restaurant.imageId }}</td>
                 <td>{{ restaurant.longitude }}</td>
                 <td>{{ restaurant.latitude }}</td>
                 <td>{{ restaurant.address }}</td>
                 <td>
-                    <button class="btn btn-light">
-                        <a href="{{ path('restaurant_show', {'id': restaurant.id}) }}">show</a></button>
-                    <button class="btn btn-light">
-                        <a href="{{ path('restaurant_edit', {'id': restaurant.id}) }}">edit</a></button>
+                    <a href="{{ path('restaurant_show', {'id': restaurant.id}) }}">show</a>
+                    <a href="{{ path('restaurant_edit', {'id': restaurant.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="10">no records found</td>
+                <td colspan="9">no records found</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-<button class="btn btn-dark">
-    <a href="{{ path('restaurant_new') }}">Create new</a></button>
+
+    <a href="{{ path('restaurant_new') }}">Create new</a>
 {% endblock %}

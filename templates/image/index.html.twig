@@ -9,8 +9,8 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>ImgPath</th>
                 <th>Path</th>
+                <th>Imgpath</th>
                 <th>Alt</th>
                 <th>actions</th>
             </tr>
@@ -19,24 +19,21 @@
         {% for image in images %}
             <tr>
                 <td>{{ image.id }}</td>
-                <td><img src="{{ asset(image.imgpath) }}" width="100px "/></td>
-                <td>{{ image.imgPath }}</td>
                 <td>{{ image.path }}</td>
+                <td><img src="{{ asset(image.imgpath) }}" width="200px"/></td>
                 <td>{{ image.alt }}</td>
                 <td>
-                    <button class="btn btn-light">
-                        <a href="{{ path('image_show', {'id': image.id}) }}">show</a></button>
-                    <button class="btn btn-light">
-                        <a href="{{ path('image_edit', {'id': image.id}) }}">edit</a></button>
+                    <a href="{{ path('image_show', {'id': image.id}) }}">show</a>
+                    <a href="{{ path('image_edit', {'id': image.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="6">no records found</td>
+                <td colspan="5">no records found</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-<button class="btn btn-dark">
-    <a href="{{ path('image_new') }}">Create new</a></button>
+
+    <a href="{{ path('image_new') }}">Create new</a>
 {% endblock %}

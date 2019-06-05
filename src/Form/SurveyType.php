@@ -12,12 +12,8 @@ class SurveyType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('ownFood')
-            ->add('procurementType_id')
-            ->add('created_at')
-            ->add('updated_at')
-            ->add('restaurant_id')
-            ->add('user')
+            ->add('procurement')
+            ->add('restaurant')
         ;
     }
 

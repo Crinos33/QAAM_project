@@ -25,7 +25,7 @@ class Image
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $img_path;
+    private $imgpath;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -66,14 +66,14 @@ class Image
         return $this;
     }
 
-    public function getImgPath(): ?string
+    public function getImgpath(): ?string
     {
-        return $this->img_path;
+        return $this->imgpath;
     }
 
-    public function setImgPath(string $img_path): self
+    public function setImgpath(string $imgpath): self
     {
-        $this->img_path = $img_path;
+        $this->imgpath = $imgpath;
 
         return $this;
     }
@@ -88,5 +88,10 @@ class Image
         $this->alt = $alt;
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->getImgpath();
     }
 }

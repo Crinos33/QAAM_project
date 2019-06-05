@@ -10,10 +10,8 @@
             <tr>
                 <th>Id</th>
                 <th>OwnFood</th>
-                <th>ProcurementType_id</th>
                 <th>Created_at</th>
                 <th>Updated_at</th>
-                <th>Restaurant_id</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -22,24 +20,20 @@
             <tr>
                 <td>{{ survey.id }}</td>
                 <td>{{ survey.ownFood ? 'Yes' : 'No' }}</td>
-                <td>{{ survey.procurementTypeId }}</td>
                 <td>{{ survey.createdAt ? survey.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ survey.updatedAt ? survey.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ survey.restaurantId }}</td>
                 <td>
-                    <button class="btn btn-light">
-                        <a href="{{ path('survey_show', {'id': survey.id}) }}">show</a></button>
-                    <button class="btn btn-light">
-                        <a href="{{ path('survey_edit', {'id': survey.id}) }}">edit</a></button>
+                    <a href="{{ path('survey_show', {'id': survey.id}) }}">show</a>
+                    <a href="{{ path('survey_edit', {'id': survey.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="7">no records found</td>
+                <td colspan="5">no records found</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-<button class="btn btn-dark">
-    <a href="{{ path('survey_new') }}">Create new</a></button>
+
+    <a href="{{ path('survey_new') }}">Create new</a>
 {% endblock %}

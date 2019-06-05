@@ -8,11 +8,10 @@ use App\Repository\ImageRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/image" , host="admin.qaam.fr")
+ * @Route("/image")
  */
 class ImageController extends AbstractController
 {
@@ -33,15 +32,17 @@ class ImageController extends AbstractController
     {
         $image = new Image();
         $form = $this->createForm(ImageType::class, $image);
-                $form->handleRequest($request);
+        $form->handleRequest($request);
 
-                if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
 
-                    /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
-                    $file = $form->get('file')->getData();
 
-                    if ($file) {
-                        $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
+            // $file stores the uploaded PDF file
+            /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
+            $file = $form->get('file')->getData();
+
+            if ($file){
+                $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
 
                 // Move the file to the directory where brochures are stored
                 try {
@@ -49,12 +50,14 @@ class ImageController extends AbstractController
                         $this->getParameter('image_abs_path'),
                         $fileName
                     );
-                } catch (FileException $e){
+                } catch (FileException $e) {
                     // ... handle exception if something happens during file upload
                 }
+
+                // updates the 'brochure' property to store the PDF file name
+                // instead of its contents
                 $image->setPath($this->getParameter('image_abs_path').'/'.$fileName);
                 $image->setImgPath($this->getParameter('image_path').'/'.$fileName);
-
 
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($image);
@@ -62,19 +65,20 @@ class ImageController extends AbstractController
 
                 return $this->redirectToRoute('image_index');
             }
+
+
         }
+
         return $this->render('image/new.html.twig', [
             'image' => $image,
             'form' => $form->createView(),
         ]);
     }
 
-
     /**
      * @Route("/{id}", name="image_show", methods={"GET"})
      */
-    public
-    function show(Image $image): Response
+    public function show(Image $image): Response
     {
         return $this->render('image/show.html.twig', [
             'image' => $image,
@@ -84,13 +88,34 @@ class ImageController extends AbstractController
     /**
      * @Route("/{id}/edit", name="image_edit", methods={"GET","POST"})
      */
-    public
-    function edit(Request $request, Image $image): Response
+    public function edit(Request $request, Image $image): Response
     {
         $form = $this->createForm(ImageType::class, $image);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // $file stores the uploaded PDF file
+            /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
+            $file = $form->get('file')->getData();
+
+            if ($file){
+                $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
+
+                // Move the file to the directory where brochures are stored
+                try {
+                    $file->move(
+                        $this->getParameter('image_abs_path'),
+                        $fileName
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+                $this->removeFile($image->getPath());
+                // updates the 'brochure' property to store the PDF file name
+                // instead of its contents
+                $image->setPath($this->getParameter('image_abs_path').'/'.$fileName);
+                $image->setImgPath($this->getParameter('image_path').'/'.$fileName);
+            }
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('image_index', [
@@ -107,10 +132,9 @@ class ImageController extends AbstractController
     /**
      * @Route("/{id}", name="image_delete", methods={"DELETE"})
      */
-    public
-    function delete(Request $request, Image $image): Response
+    public function delete(Request $request, Image $image): Response
     {
-        if ($this->isCsrfTokenValid('delete' . $image->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$image->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $this->removeFile($image->getPath());
             $entityManager->remove($image);
@@ -120,26 +144,22 @@ class ImageController extends AbstractController
         return $this->redirectToRoute('image_index');
     }
 
+
     /**
      * @return string
      */
-    private
-    function generateUniqueFileName()
+    private function generateUniqueFileName()
     {
         // md5() reduces the similarity of the file names generated by
         // uniqid(), which is based on timestamps
         return md5(uniqid());
     }
 
-
-    private
-    function removeFile($path)
+    private function removeFile($path)
     {
-        if (file_exists($path)) {
+        if(file_exists($path))
+        {
             unlink($path);
         }
-
-
     }
-
 }

@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -22,7 +24,7 @@ class Restaurant
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $externalLink;
 
@@ -37,17 +39,12 @@ class Restaurant
     private $shop;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $image_id;
-
-    /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $longitude;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $latitude;
 
@@ -55,6 +52,12 @@ class Restaurant
      * @ORM\Column(type="string", length=255)
      */
     private $address;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Image", cascade={"persist", "remove"})
+     */
+    private $image;
+
 
     public function getId(): ?int
     {
@@ -109,18 +112,6 @@ class Restaurant
         return $this;
     }
 
-    public function getImageId(): ?int
-    {
-        return $this->image_id;
-    }
-
-    public function setImageId(int $image_id): self
-    {
-        $this->image_id = $image_id;
-
-        return $this;
-    }
-
     public function getLongitude(): ?string
     {
         return $this->longitude;
@@ -155,5 +146,22 @@ class Restaurant
         $this->address = $address;
 
         return $this;
+    }
+
+    public function getImage(): ?Image
+    {
+        return $this->image;
+    }
+
+    public function setImage(?Image $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->name;
     }
 }

@@ -12,24 +12,23 @@
                 <td>{{ image.id }}</td>
             </tr>
             <tr>
-                <th>ImgPath</th>
-                <td>{{ image.imgPath }}</td>
-            </tr>
-            <tr>
                 <th>Path</th>
                 <td>{{ image.path }}</td>
             </tr>
-
+            <tr>
+                <th>Imgpath</th>
+                <td>{{ image.imgpath }}</td>
+            </tr>
             <tr>
                 <th>Alt</th>
                 <td>{{ image.alt }}</td>
             </tr>
         </tbody>
     </table>
-<button class="btn btn-dark">
-    <a href="{{ path('image_index') }}">back to list</a></button>
-    <button class="btn btn-dark">
-        <a href="{{ path('image_edit', {'id': image.id}) }}">edit</a></button>
+
+    <a href="{{ path('image_index') }}">back to list</a>
+
+    <a href="{{ path('image_edit', {'id': image.id}) }}">edit</a>
 
     {{ include('image/_delete_form.html.twig') }}
 {% endblock %}

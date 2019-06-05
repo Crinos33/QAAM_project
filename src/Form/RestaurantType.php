@@ -16,10 +16,10 @@ class RestaurantType extends AbstractType
             ->add('externalLink')
             ->add('onSite')
             ->add('shop')
-            ->add('image_id')
             ->add('longitude')
             ->add('latitude')
             ->add('address')
+            ->add('image')
         ;
     }
 

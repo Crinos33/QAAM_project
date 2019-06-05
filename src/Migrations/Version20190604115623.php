@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20190529085952 extends AbstractMigration
+final class Version20190604115623 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -22,9 +22,7 @@ final class Version20190529085952 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE fos_user ADD survey_id INT NOT NULL');
-        $this->addSql('ALTER TABLE fos_user ADD CONSTRAINT FK_957A6479B3FE509D FOREIGN KEY (survey_id) REFERENCES survey (id)');
-        $this->addSql('CREATE UNIQUE INDEX UNIQ_957A6479B3FE509D ON fos_user (survey_id)');
+        $this->addSql('CREATE TABLE procurement (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
     }
 
     public function down(Schema $schema) : void
@@ -32,8 +30,6 @@ final class Version20190529085952 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE fos_user DROP FOREIGN KEY FK_957A6479B3FE509D');
-        $this->addSql('DROP INDEX UNIQ_957A6479B3FE509D ON fos_user');
-        $this->addSql('ALTER TABLE fos_user DROP survey_id');
+        $this->addSql('DROP TABLE procurement');
     }
 }

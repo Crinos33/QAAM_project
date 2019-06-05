@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\ProcurementType;
+use App\Entity\Procurement;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
- * @method ProcurementType|null find($id, $lockMode = null, $lockVersion = null)
- * @method ProcurementType|null findOneBy(array $criteria, array $orderBy = null)
- * @method ProcurementType[]    findAll()
- * @method ProcurementType[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Procurement|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Procurement|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Procurement[]    findAll()
+ * @method Procurement[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ProcurementTypeRepository extends ServiceEntityRepository
+class ProcurementRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, ProcurementType::class);
+        parent::__construct($registry, Procurement::class);
     }
 
     // /**
-    //  * @return ProcurementType[] Returns an array of ProcurementType objects
+    //  * @return Procurement[] Returns an array of Procurement objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class ProcurementTypeRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?ProcurementType
+    public function findOneBySomeField($value): ?Procurement
     {
         return $this->createQueryBuilder('p')
             ->andWhere('p.exampleField = :val')
