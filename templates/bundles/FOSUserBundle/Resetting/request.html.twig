@@ -1,8 +1,9 @@
-{% extends 'base-simple.html.twig' %}
+{% extends "base-simple.html.twig" %}
+
 {% block fos_user_content %}
     <div class="alert alert-info row justify-content-center">
         <div class="col-8 text-center">
-            {% include "@FOSUser/Resetting/reset_content.html.twig" %}
+            {% include "@FOSUser/Resetting/request_content.html.twig" %}
         </div>
     </div>
-{% endblock %}
+{% endblock fos_user_content %}

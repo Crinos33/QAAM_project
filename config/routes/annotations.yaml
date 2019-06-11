@@ -1,3 +1,9 @@
+to_ng:
+    path: /
+    host: 'qaam.fr'
+    defaults:
+        url: 'http://qaam.fr'
+
 controllers:
     host: 'admin.qaam.fr'
     resource: ../../src/Controller/

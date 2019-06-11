@@ -54,8 +54,8 @@ security:
 
     access_control:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY, host: admin\.qaam\.fr }
-        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY, host: admin\.qaam\.fr }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY, host: admin\.qaam\.fr }
+        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY, host: admin\.qaam\.fr }
         - { path: ^/redirectionTo, role: IS_AUTHENTICATED_FULLY, host: admin\.qaam\.fr }
         - { path: ^/, role: ROLE_ADMIN, host: admin\.qaam\.fr }
 

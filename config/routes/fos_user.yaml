@@ -1,3 +1,9 @@
+fos_user_registration_confirmed:
+    path: /register/confirmed
+    host: 'admin.qaam.fr'
+    methods: [GET]
+    defaults: { _controller: 'App\Controller\RegistrationController:confirmedAction' }
+
 fos_user:
     host: 'admin.qaam.fr'
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"

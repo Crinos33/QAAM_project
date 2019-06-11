@@ -49,7 +49,21 @@ services:
         class: App\Form\ListitemType
         arguments: ["@doctrine.orm.entity_manager"]
 
+    FOS\UserBundle\Mailer\MailerInterface: '@fos_user.mailer.twig_swift'
+
+    app.registration_listener:
+        class: App\EventListener\RegisterConfirmationListener
+        arguments: ["@fos_user.mailer.twig_swift", "@fos_user.util.token_generator", '@session']
+        tags:
+            - { name: kernel.event_subscriber }
+
     app.form.registration:
         class: App\Form\RegistrationType
         tags:
             - { name: form.type, alias: app_user_registration }
+
+    fos_user.password_resetting:
+        class: App\EventListener\PasswordResettingListener
+        arguments: ['@router']
+        tags:
+            - { name: kernel.event_subscriber }

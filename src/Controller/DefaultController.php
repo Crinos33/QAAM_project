@@ -22,8 +22,22 @@ class DefaultController extends AbstractController
     {
         return $this->render('default/index.html.twig',[
             'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR
-
         ]);
+    }
+
+    /**
+     * @Route("/redirectionTo", name="redirectTo")
+     */
+    public function redirection()
+    {
+        // TODO : twig FOS USER
+        $user = $this->getUser();
+        if($user->hasRole('ROLE_ADMIN'))
+        {
+            return $this->redirectToRoute('fos_user_profile_show');
+        }
+
+        return $this->redirectToRoute('to_ng');
     }
 
     /**

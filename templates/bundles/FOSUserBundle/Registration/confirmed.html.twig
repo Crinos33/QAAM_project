@@ -1,7 +1,16 @@
-{# templates/bundles/FOSUserBundle/Registration/confirmed.html.twig #}
-{# the special '!' prefix avoids errors when extending from an overridden template #}
-{# extends "@!FOSUser/Registration/confirmed.html.twig" #}
+{% extends 'base-simple.html.twig' %}
+{% block body %}
+    <div class="alert alert-info row justify-content-center">
+        <h3 class="col-8 text-center">Ton compte a bien été validé, c'est génial !!!</h3>
+    </div>
+{% endblock %}
+{% block javascripts %}
+<script>
+    setTimeout(function(){
+       window.location.href = "{{ path('redirectTo') }}";
+    }, 3500);
+</script>
+{% endblock %}
 
 
-    <div>good</div>
 

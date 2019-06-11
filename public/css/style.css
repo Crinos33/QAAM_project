@@ -10,7 +10,7 @@ header,
     body,
     header,
     .view {
-        height: 1000px;
+        max-height: 500px;
     }
 }
 @media (min-width: 800px) and (max-width: 850px) {
