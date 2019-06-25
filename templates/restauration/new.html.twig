@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Restauration{% endblock %}
+
+{% block body %}
+    <h1>Create new Restauration</h1>
+
+    {{ include('restauration/_form.html.twig') }}
+
+    <a href="{{ path('restauration_index') }}">back to list</a>
+{% endblock %}

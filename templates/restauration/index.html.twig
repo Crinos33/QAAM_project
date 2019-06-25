@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Restauration index{% endblock %}
+
+{% block body %}
+    <h1>Restauration index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for restauration in restaurations %}
+            <tr>
+                <td>{{ restauration.id }}</td>
+                <td>{{ restauration.name }}</td>
+                <td>
+                    <a href="{{ path('restauration_show', {'id': restauration.id}) }}">show</a>
+                    <a href="{{ path('restauration_edit', {'id': restauration.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('restauration_new') }}">Create new</a>
+{% endblock %}

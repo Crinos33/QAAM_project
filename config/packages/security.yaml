@@ -1,4 +1,6 @@
 security:
+    access_denied_url: /login
+
     encoders:
         FOS\UserBundle\Model\UserInterface: bcrypt
 

@@ -5,14 +5,10 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\ProcurementRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\DeliveryRepository")
  */
-class Procurement
+class Delivery
 {
-    const FROM_HOME = 0;
-    const GO_TO_GET = 10;
-    const SHIPMENT = 20;
-    const DONT_KNOW = 30;
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -30,6 +26,10 @@ class Procurement
      */
     private $value;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $definition;
 
     public function getId(): ?int
     {
@@ -48,11 +48,6 @@ class Procurement
         return $this;
     }
 
-    public function __toString()
-    {
-        return $this->getName();
-    }
-
     public function getValue(): ?int
     {
         return $this->value;
@@ -63,5 +58,22 @@ class Procurement
         $this->value = $value;
 
         return $this;
+    }
+
+    public function getDefinition(): ?string
+    {
+        return $this->definition;
+    }
+
+    public function setDefinition(?string $definition): self
+    {
+        $this->definition = $definition;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return sprintf(' %s (%d)', $this->getName(), $this->getValue());
     }
 }

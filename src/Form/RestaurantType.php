@@ -13,13 +13,15 @@ class RestaurantType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('externalLink')
-            ->add('onSite')
-            ->add('shop')
-            ->add('longitude')
-            ->add('latitude')
             ->add('address')
-            ->add('image')
+            ->add('lat')
+            ->add('lng')
+            ->add('zipcode')
+            ->add('city')
+            ->add('isArestaurant')
+            ->add('isAshop')
+            ->add('restauration')
+            ->add('delivery')
         ;
     }
 

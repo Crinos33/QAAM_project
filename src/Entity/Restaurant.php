@@ -2,8 +2,6 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -26,38 +24,48 @@ class Restaurant
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $externalLink;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $onSite;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $shop;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $longitude;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $latitude;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
     private $address;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Image", cascade={"persist", "remove"})
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $image;
+    private $lat;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $lng;
+
+    /**
+     * @ORM\Column(type="string", length=5, nullable=true)
+     */
+    private $zipcode;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $city;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isArestaurant;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isAshop;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Restauration")
+     */
+    private $restauration;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Delivery")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $delivery;
 
     public function getId(): ?int
     {
@@ -76,92 +84,111 @@ class Restaurant
         return $this;
     }
 
-    public function getExternalLink(): ?string
-    {
-        return $this->externalLink;
-    }
-
-    public function setExternalLink(string $externalLink): self
-    {
-        $this->externalLink = $externalLink;
-
-        return $this;
-    }
-
-    public function getOnSite(): ?bool
-    {
-        return $this->onSite;
-    }
-
-    public function setOnSite(bool $onSite): self
-    {
-        $this->onSite = $onSite;
-
-        return $this;
-    }
-
-    public function getShop(): ?bool
-    {
-        return $this->shop;
-    }
-
-    public function setShop(bool $shop): self
-    {
-        $this->shop = $shop;
-
-        return $this;
-    }
-
-    public function getLongitude(): ?string
-    {
-        return $this->longitude;
-    }
-
-    public function setLongitude(string $longitude): self
-    {
-        $this->longitude = $longitude;
-
-        return $this;
-    }
-
-    public function getLatitude(): ?string
-    {
-        return $this->latitude;
-    }
-
-    public function setLatitude(string $latitude): self
-    {
-        $this->latitude = $latitude;
-
-        return $this;
-    }
-
     public function getAddress(): ?string
     {
         return $this->address;
     }
 
-    public function setAddress(string $address): self
+    public function setAddress(?string $address): self
     {
         $this->address = $address;
 
         return $this;
     }
 
-    public function getImage(): ?Image
+    public function getLat(): ?string
     {
-        return $this->image;
+        return $this->lat;
     }
 
-    public function setImage(?Image $image): self
+    public function setLat(?string $lat): self
     {
-        $this->image = $image;
+        $this->lat = $lat;
 
         return $this;
     }
 
-    public function __toString()
+    public function getLng(): ?string
     {
-        return $this->name;
+        return $this->lng;
+    }
+
+    public function setLng(?string $lng): self
+    {
+        $this->lng = $lng;
+
+        return $this;
+    }
+
+    public function getZipcode(): ?string
+    {
+        return $this->zipcode;
+    }
+
+    public function setZipcode(?string $zipcode): self
+    {
+        $this->zipcode = $zipcode;
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(?string $city): self
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    public function getIsashop(): ?bool
+    {
+        return $this->isAshop;
+    }
+
+    public function setIsashop(bool $isAshop): self
+    {
+        $this->isAshop = $isAshop;
+
+        return $this;
+    }
+
+    public function getIsArestaurant(): ?bool
+    {
+        return $this->isArestaurant;
+    }
+
+    public function setIsArestaurant(bool $isArestaurant): self
+    {
+        $this->isArestaurant = $isArestaurant;
+
+        return $this;
+    }
+
+    public function getRestauration(): ?Restauration
+    {
+        return $this->restauration;
+    }
+
+    public function setRestauration(?Restauration $restauration): self
+    {
+        $this->restauration = $restauration;
+
+        return $this;
+    }
+
+    public function getDelivery(): ?Delivery
+    {
+        return $this->delivery;
+    }
+
+    public function setDelivery(?Delivery $delivery): self
+    {
+        $this->delivery = $delivery;
+
+        return $this;
     }
 }

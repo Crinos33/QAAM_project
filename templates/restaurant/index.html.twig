@@ -1,8 +1,19 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Restaurant index{% endblock %}
-
+{% block stylesheets %}
+    <style>
+        #map {
+            height: 400px;  /* The height is 400 pixels */
+            width: 100%;  /* The width is the width of the web page */
+        }
+    </style>
+{% endblock %}
 {% block body %}
+    <div class="container-fluid">
+        <div id="map"></div>
+    </div>
+
     <h1>Restaurant index</h1>
 
     <table class="table">
@@ -10,12 +21,13 @@
             <tr>
                 <th>Id</th>
                 <th>Name</th>
-                <th>ExternalLink</th>
-                <th>OnSite</th>
-                <th>Shop</th>
-                <th>Longitude</th>
-                <th>Latitude</th>
                 <th>Address</th>
+                <th>Lat</th>
+                <th>Lng</th>
+                <th>Zipcode</th>
+                <th>City</th>
+                <th>IsArestaurant</th>
+                <th>IsAshop</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -23,18 +35,14 @@
         {% for restaurant in restaurants %}
             <tr>
                 <td>{{ restaurant.id }}</td>
-                <td>
-                    {{ restaurant.name }}
-                    {% if  restaurant.image %}
-                    <img src="{{ asset(restaurant.image.imgpath) }}" width="200px"/>
-                    {% endif %}
-                </td>
-                <td>{{ restaurant.externalLink }}</td>
-                <td>{{ restaurant.onSite ? 'Yes' : 'No' }}</td>
-                <td>{{ restaurant.shop ? 'Yes' : 'No' }}</td>
-                <td>{{ restaurant.longitude }}</td>
-                <td>{{ restaurant.latitude }}</td>
+                <td>{{ restaurant.name }}</td>
                 <td>{{ restaurant.address }}</td>
+                <td>{{ restaurant.lat }}</td>
+                <td>{{ restaurant.lng }}</td>
+                <td>{{ restaurant.zipcode }}</td>
+                <td>{{ restaurant.city }}</td>
+                <td>{{ restaurant.isArestaurant ? 'Yes' : 'No' }}</td>
+                <td>{{ restaurant.isAshop ? 'Yes' : 'No' }}</td>
                 <td>
                     <a href="{{ path('restaurant_show', {'id': restaurant.id}) }}">show</a>
                     <a href="{{ path('restaurant_edit', {'id': restaurant.id}) }}">edit</a>
@@ -42,11 +50,36 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="9">no records found</td>
+                <td colspan="10">no records found</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
     <a href="{{ path('restaurant_new') }}">Create new</a>
+{% endblock %}
+{% block javascripts %}
+
+    <script>
+        function initMap() {
+            // The location of Dotsafe
+            var dotsafe = {lat: 44.859822, lng: -0.55666
+            };
+            // The map, centered at Dotsafe
+            var map = new google.maps.Map(
+                document.getElementById('map'), {zoom: 16, center: dotsafe});
+            // The marker, positioned at Dotsafe
+            var marker = new google.maps.Marker({position: dotsafe, map: map});
+        }
+    </script>
+    <!--Load the API from the specified URL
+    * The async attribute allows the browser to render the page while the API loads
+    * The key parameter will contain your own API key (which is not needed for this tutorial)
+    * The callback parameter executes the initMap() function
+    -->
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCA7y5uYliRbuHQXde_CMzSQRTfR9OEKrM&callback=initMap">
+    </script>
+
+
 {% endblock %}
