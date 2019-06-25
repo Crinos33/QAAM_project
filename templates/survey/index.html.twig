@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Survey index{% endblock %}
+
+{% block body %}
+    <h1>Survey index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>CreatedAt</th>
+                <th>UpdatedAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for survey in surveys %}
+            <tr>
+                <td>{{ survey.id }}</td>
+                <td>{{ survey.createdAt ? survey.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ survey.updatedAt ? survey.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('survey_show', {'id': survey.id}) }}">show</a>
+                    <a href="{{ path('survey_edit', {'id': survey.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('survey_new') }}">Create new</a>
+{% endblock %}
