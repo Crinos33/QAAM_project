@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/restaurants")
+ * @Route("/restaurant")
  */
 class RestaurantController extends AbstractController
 {
@@ -22,6 +22,7 @@ class RestaurantController extends AbstractController
     {
         return $this->render('restaurant/index.html.twig', [
             'restaurants' => $restaurantRepository->findAll(),
+            'restaurantsJson' => json_encode($restaurantRepository->findAllArray()),
         ]);
     }
 

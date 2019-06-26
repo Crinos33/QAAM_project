@@ -4,8 +4,8 @@
 {% block stylesheets %}
     <style>
         #map {
-            height: 400px;  /* The height is 400 pixels */
-            width: 100%;  /* The width is the width of the web page */
+            height: 400px; /* The height is 400 pixels */
+            width: 100%; /* The width is the width of the web page */
         }
     </style>
 {% endblock %}
@@ -18,18 +18,18 @@
 
     <table class="table">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Address</th>
-                <th>Lat</th>
-                <th>Lng</th>
-                <th>Zipcode</th>
-                <th>City</th>
-                <th>IsArestaurant</th>
-                <th>IsAshop</th>
-                <th>actions</th>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Lat</th>
+            <th>Lng</th>
+            <th>Zipcode</th>
+            <th>City</th>
+            <th>IsArestaurant</th>
+            <th>IsAshop</th>
+            <th>actions</th>
+        </tr>
         </thead>
         <tbody>
         {% for restaurant in restaurants %}
@@ -61,9 +61,11 @@
 {% block javascripts %}
 
     <script>
+        var restaurants = JSON.parse('{{ restaurantsJson |escape('js') }}');
         function initMap() {
             // The location of Dotsafe
-            var dotsafe = {lat: 44.859822, lng: -0.55666
+            var dotsafe = {
+                lat: 44.859822, lng: -0.55666
             };
             // The map, centered at Dotsafe
             var map = new google.maps.Map(
@@ -72,8 +74,35 @@
                     center: dotsafe,
                     streetViewControl: false
                 });
-            // The marker, positioned at Dotsafe
-            var marker = new google.maps.Marker({position: dotsafe, map: map});
+
+            populateRestaurants(map);
+        }
+        function populateRestaurants(map){
+
+            for (var i = 0; i < restaurants.length; i++) {
+                var restaurant = restaurants[i];
+                if (restaurant.lat && restaurant.lng) {
+                    var lat = parseFloat(restaurant.lat), lng = parseFloat(restaurant.lng);
+                    var markerOptions = {
+                            position: {
+                                lat: lat, lng: lng
+                            },
+                            icon : {
+                                url: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
+                            },
+                            map: map
+                        };
+                    if ( restaurant.isArestaurant && !restaurant.isAshop ) {
+                        markerOptions.icon = { url: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'};
+                    }
+
+                    if ( !restaurant.isArestaurant && restaurant.isAshop ) {
+                        markerOptions.icon = { url: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png'};
+                    }
+
+                    var marker = new google.maps.Marker(markerOptions);
+                }
+            }
         }
     </script>
     <!--Load the API from the specified URL
