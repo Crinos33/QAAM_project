@@ -19,4 +19,5 @@ function placeRestaurant(map, restaurant) {
         };
         return new google.maps.Marker(markerOptions);
     }
+    return null;
 }

@@ -14,8 +14,17 @@
     <div class="container-fluid">
         <div id="map"></div>
     </div>
-    <h1>Edit Restaurant</h1>
 
+    <h1>Edit Restaurant</h1>
+    <div class="row" id="pac-card">
+        <h1 id="title" class="col-12">
+            Aide à la recherche :
+        </h1>
+        <div id="pac-container" class="col-12">
+            <input class="form-control" id="pac-input" type="text"
+                   placeholder="chercher un restaurant">
+        </div>
+    </div>
     {{ include('restaurant/_form.html.twig', {'button_label': 'Update'}) }}
 
     <a href="{{ path('restaurant_index') }}">back to list</a>
@@ -25,22 +34,155 @@
 {% block javascripts %}
 
     <script>
-
+        var marker = null;
         function initMap() {
             // The location of Dotsafe
             var dotsafe = {
                 lat: 44.859822, lng: -0.55666
             };
+            var restaurant = JSON.parse('{{ restaurantJson |escape('js') }}');
+
+            if (restaurant.lat && restaurant.lng) {
+                var lat = parseFloat(restaurant.lat),
+                    lng = parseFloat(restaurant.lng);
+                dotsafe.lat = lat;
+                dotsafe.lng = lng;
+            }
             // The map, centered at Dotsafe
             var map = new google.maps.Map(
                 document.getElementById('map'), {
                     zoom: 16,
-                    center: dotsafe,
+                    center:  dotsafe,
                     streetViewControl: false
                 });
+            marker = placeRestaurant(map, restaurant);
 
-            populateRestaurants(map);
+            google.maps.event.addListener(map, 'click', function(e) {
+                var geocoder = new google.maps.Geocoder;
+                geocoder.geocode({
+                    'location': e.latLng
+                }, function(results, status) {
+                    if (status === google.maps.GeocoderStatus.OK) {
+                        if (results[0]) {
 
+                            var placeId = results[0].place_id;
+                            var request = {
+                                placeId: placeId,
+                                fields: ['name', 'address_components', 'place_id', 'geometry'],
+                                types: ['establishment']
+                            };
+                            var service = new google.maps.places.PlacesService(map);
+                            service.getDetails(request, function(place, status) {
+                                if (status === google.maps.places.PlacesServiceStatus.OK) {
+                                    console.log(place);
+                                    var address = '', zipcode = '', city = '';
+                                    if (!place.geometry) {
+                                        // User entered the name of a Place that was not suggested and
+                                        // pressed the Enter key, or the Place Details request failed.
+                                        window.alert("No details available for input: '" + place.name + "'");
+                                        return;
+                                    }
+                                    var location = place.geometry.location || {},
+                                        lat = location.lat() || '',
+                                        lng = location.lng() || '';
+                                    marker.setPosition({ lat : lat, lng: lng });
+                                    if (place.address_components) {
+                                        address = [
+                                            (place.address_components[0] && place.address_components[0].short_name || ''),
+                                            (place.address_components[1] && place.address_components[1].short_name || ''),
+
+                                        ].join(' ');
+                                        zipcode = (place.address_components[6] && place.address_components[6].short_name || '');
+                                        city = (place.address_components[2] && place.address_components[2].short_name || '');
+                                    }
+                                    var name = place.name || '';
+                                    populateInputs(name, address, zipcode, city, lat, lng);
+                                }
+                            });
+                        } else {
+                            //console.log('No results found');
+                        }
+                    } else {
+                        //console.log('Geocoder failed due to: ' + status);
+                    }
+                });
+
+            });
+
+            var inter = null;
+            google.maps.event.addListener(map, 'mousedown', function(place){
+                clearTimeout(inter);
+                inter = setTimeout(function(){
+
+                    var lat = place.latLng.lat(), lng = place.latLng.lng();
+                    if (marker) {
+                        marker.setPosition({ lat : lat, lng: lng });
+                        changeRestaurantLocation(lat, lng);
+                    }
+                }, 2500);
+            });
+            google.maps.event.addListener(map, 'mouseup', function(place) {
+                clearTimeout(inter);
+            });
+
+
+            var input = document.getElementById('pac-input');
+
+
+            var autocomplete = new google.maps.places.Autocomplete(input);
+            autocomplete.bindTo('bounds', map);
+            autocomplete.setFields(
+                ['address_components', 'geometry', 'icon', 'name']);
+            autocomplete.setTypes(['establishment']);
+            autocomplete.setOptions({strictBounds: false});
+            autocomplete.addListener('place_changed', function() {
+                marker.setVisible(false);
+                var place = autocomplete.getPlace();
+                if (!place.geometry) {
+                    // User entered the name of a Place that was not suggested and
+                    // pressed the Enter key, or the Place Details request failed.
+                    window.alert("No details available for input: '" + place.name + "'");
+                    return;
+                }
+                if (place.geometry.viewport) {
+                    map.fitBounds(place.geometry.viewport);
+                } else {
+                    map.setCenter(place.geometry.location);
+                    map.setZoom(17);  // Pourquoi 17? tu sais pourquoi orangina rouge est mechant ? lol
+                }
+                marker.setPosition(place.geometry.location);
+                marker.setVisible(true);
+                var address = '';
+                if (place.address_components) {
+                    address = [
+                        (place.address_components[0] && place.address_components[0].short_name || ''),
+                        (place.address_components[1] && place.address_components[1].short_name || ''),
+
+                    ].join(' ');
+                    var zipcode = (place.address_components[6] && place.address_components[6].short_name || '');
+                    var city = (place.address_components[2] && place.address_components[2].short_name || '');
+                }
+                var name = place.name || '';
+                var location = place.geometry.location || {},
+                    lat = location.lat() || '',
+                    lng = location.lng() || '';
+                populateInputs(name, address, zipcode, city, lat, lng);
+            });
+        }
+
+        function changeRestaurantLocation(lat, lng) {
+            $("#restaurant_lat").val(lat);
+            $("#restaurant_lng").val(lng);
+        }
+
+
+        function populateInputs(name, address, zipcode, city, lat, lng){
+            $("#restaurant_name").val(name);
+            $("#restaurant_address").val(address);
+            $("#restaurant_zipcode").val(zipcode);
+            $("#restaurant_city").val(city);
+            $("#restaurant_lat").val(lat);
+            $("#restaurant_lng").val(lng);
         }
     </script>
     <!--Load the API from the specified URL
@@ -49,7 +191,7 @@
     * The callback parameter executes the initMap() function
     -->
     <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCA7y5uYliRbuHQXde_CMzSQRTfR9OEKrM&callback=initMap">
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCA7y5uYliRbuHQXde_CMzSQRTfR9OEKrM&libraries=places&callback=initMap">
     </script>
 
 

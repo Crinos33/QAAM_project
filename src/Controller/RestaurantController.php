@@ -80,6 +80,7 @@ class RestaurantController extends AbstractController
 
         return $this->render('restaurant/edit.html.twig', [
             'restaurant' => $restaurant,
+            'restaurantJson' => json_encode($this->normalize($restaurant)),
             'form' => $form->createView(),
         ]);
     }
