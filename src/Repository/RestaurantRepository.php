@@ -27,6 +27,16 @@ class RestaurantRepository extends ServiceEntityRepository
         return $qb->getQuery()->getArrayResult();
     }
 
+    public function findArray($id)
+    {
+        $qb = $this
+            ->createQueryBuilder('r')
+            ->where('r.id = :id')
+            ->setParameter('id', $id);
+
+        return $qb->getQuery()->getResult();
+    }
+
     // /**
     //  * @return Restaurant[] Returns an array of Restaurant objects
     //  */

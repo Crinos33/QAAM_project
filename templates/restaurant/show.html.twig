@@ -1,8 +1,18 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Restaurant{% endblock %}
-
+{% block stylesheets %}
+    <style>
+        #map {
+            height: 400px; /* The height is 400 pixels */
+            width: 100%; /* The width is the width of the web page */
+        }
+    </style>
+{% endblock %}
 {% block body %}
+    <div class="container-fluid">
+        <div id="map"></div>
+    </div>
     <h1>Restaurant</h1>
 
     <table class="table">
@@ -51,4 +61,44 @@
     <a href="{{ path('restaurant_edit', {'id': restaurant.id}) }}">edit</a>
 
     {{ include('restaurant/_delete_form.html.twig') }}
+{% endblock %}
+{% block javascripts %}
+
+    <script>
+
+        function initMap() {
+            var dotsafe = {
+                lat: 44.859822, lng: -0.55666
+            };
+            // The map, centered at Dotsafe
+            var map = new google.maps.Map(
+                document.getElementById('map'), {
+                    zoom: 16,
+                    center: dotsafe,
+                    streetViewControl: false
+                });
+
+          new google.maps.Marker({
+                position: dotsafe,
+                icon : {
+                    url: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
+                },
+                map: map
+            });
+
+            var restaurant = JSON.parse('{{ restaurantJson |escape('js') }}');
+            placeRestaurant(map, restaurant);
+
+        }
+    </script>
+    <!--Load the API from the specified URL
+    * The async attribute allows the browser to render the page while the API loads
+    * The key parameter will contain your own API key (which is not needed for this tutorial)
+    * The callback parameter executes the initMap() function
+    -->
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCA7y5uYliRbuHQXde_CMzSQRTfR9OEKrM&callback=initMap">
+    </script>
+
+
 {% endblock %}

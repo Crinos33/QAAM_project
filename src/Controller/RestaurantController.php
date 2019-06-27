@@ -9,6 +9,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 /**
  * @Route("/restaurant")
@@ -52,10 +54,11 @@ class RestaurantController extends AbstractController
     /**
      * @Route("/{id}", name="restaurant_show", methods={"GET"})
      */
-    public function show(Restaurant $restaurant): Response
+    public function show(Restaurant $restaurant, RestaurantRepository $restaurantRepository): Response
     {
         return $this->render('restaurant/show.html.twig', [
             'restaurant' => $restaurant,
+            'restaurantJson' => json_encode($this->normalize($restaurant))
         ]);
     }
 
@@ -94,4 +97,22 @@ class RestaurantController extends AbstractController
 
         return $this->redirectToRoute('restaurant_index');
     }
+
+    public function normalize($object)
+    {
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $object = $serializer->normalize($object, null,
+            ['attributes' => ['id', 'name', 'address', 'zipcode', 'city', 'lat', 'lng', 'isArestaurant', 'isAshop']]);
+
+        return $object;
+    }
 }
+
+
+
+
+
+
+
+
+
