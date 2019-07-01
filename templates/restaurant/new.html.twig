@@ -8,27 +8,33 @@
         #map {
             height: 100%;
         }
-        .map-row{
+
+        .map-row {
             height: 400px;
         }
+
         /* Optional: Makes the sample page fill the window. */
         html, body {
             height: 100%;
             margin: 0;
             padding: 0;
         }
+
         #pac-container {
             padding-bottom: 12px;
             margin-right: 12px;
         }
+
         .pac-controls label {
             font-family: Roboto;
             font-size: 13px;
             font-weight: 300;
         }
+
         #pac-input:focus {
             border-color: #4d90fe;
         }
+
         #title {
             color: #fff;
             background-color: #4d90fe;
@@ -47,7 +53,7 @@
     <h1>Create new Restaurant</h1>
     <div class="row" id="pac-card">
         <h1 id="title" class="col-12">
-                Aide à la recherche :
+            Aide à la recherche :
         </h1>
         <div id="pac-container" class="col-12">
             <input class="form-control" id="pac-input" type="text"
@@ -60,7 +66,7 @@
 {% endblock %}
 {% block javascripts %}
     <script>
-        function populateInputs(name, address, zipcode, city, lat, lng){
+        function populateInputs(name, address, zipcode, city, lat, lng) {
             $("#restaurant_name").val(name);
             $("#restaurant_address").val(address);
             $("#restaurant_zipcode").val(zipcode);
@@ -68,6 +74,7 @@
             $("#restaurant_lat").val(lat);
             $("#restaurant_lng").val(lng);
         }
+
         function initMap() {
             var map = new google.maps.Map(document.getElementById('map'), {
                 center: {lat: 44.859822, lng: -0.55666},
@@ -75,11 +82,11 @@
                 streetViewControl: false,
             });
             var geocoder = new google.maps.Geocoder;
-            google.maps.event.addListener(map, 'click', function(e) {
+            google.maps.event.addListener(map, 'click', function (e) {
                 //alert('clicked @' + e.latLng.toString())
                 geocoder.geocode({
                     'location': e.latLng
-                }, function(results, status) {
+                }, function (results, status) {
                     if (status === google.maps.GeocoderStatus.OK) {
                         if (results[0]) {
 
@@ -90,7 +97,7 @@
                                 types: ['establishment']
                             };
                             var service = new google.maps.places.PlacesService(map);
-                            service.getDetails(request, function(place, status) {
+                            service.getDetails(request, function (place, status) {
                                 if (status === google.maps.places.PlacesServiceStatus.OK) {
                                     console.log(place);
                                     if (!place.geometry) {
@@ -138,7 +145,7 @@
                 map: map,
                 anchorPoint: new google.maps.Point(0, -29)
             });
-            autocomplete.addListener('place_changed', function() {
+            autocomplete.addListener('place_changed', function () {
                 marker.setVisible(false);
                 var place = autocomplete.getPlace();
                 if (!place.geometry) {
