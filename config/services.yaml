@@ -62,6 +62,10 @@ services:
         tags:
             - { name: form.type, alias: app_user_registration }
 
+    controller.user:
+        class: App\Controller\UserController
+        arguments: ["@fos_user.user_manager"]
+
     fos_user.password_resetting:
         class: App\EventListener\PasswordResettingListener
         arguments: ['@router']
