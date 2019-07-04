@@ -46,6 +46,11 @@ class Survey
      */
     private $user;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Restaurant", inversedBy="surveys")
+     */
+    private $restaurant;
+
 
     public function getId(): ?int
     {
@@ -108,6 +113,18 @@ class Survey
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getRestaurant(): ?Restaurant
+    {
+        return $this->restaurant;
+    }
+
+    public function setRestaurant(?Restaurant $restaurant): self
+    {
+        $this->restaurant = $restaurant;
 
         return $this;
     }

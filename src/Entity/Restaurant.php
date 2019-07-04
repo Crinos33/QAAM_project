@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -66,6 +68,16 @@ class Restaurant
      * @ORM\JoinColumn(nullable=false)
      */
     private $delivery;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Survey", mappedBy="restaurant")
+     */
+    private $surveys;
+
+    public function __construct()
+    {
+        $this->surveys = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -188,6 +200,37 @@ class Restaurant
     public function setDelivery(?Delivery $delivery): self
     {
         $this->delivery = $delivery;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Survey[]
+     */
+    public function getSurveys(): Collection
+    {
+        return $this->surveys;
+    }
+
+    public function addSurvey(Survey $survey): self
+    {
+        if (!$this->surveys->contains($survey)) {
+            $this->surveys[] = $survey;
+            $survey->setRestaurant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSurvey(Survey $survey): self
+    {
+        if ($this->surveys->contains($survey)) {
+            $this->surveys->removeElement($survey);
+            // set the owning side to null (unless already changed)
+            if ($survey->getRestaurant() === $this) {
+                $survey->setRestaurant(null);
+            }
+        }
 
         return $this;
     }
