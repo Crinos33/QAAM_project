@@ -29,12 +29,6 @@ class Survey
     private $updatedAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Probe")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $probe;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Status")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -48,8 +42,14 @@ class Survey
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Restaurant", inversedBy="surveys")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $restaurant;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $ownFood;
 
 
     public function getId(): ?int
@@ -77,18 +77,6 @@ class Survey
     public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
-
-    public function getProbe(): ?Probe
-    {
-        return $this->probe;
-    }
-
-    public function setProbe(?Probe $probe): self
-    {
-        $this->probe = $probe;
 
         return $this;
     }
@@ -125,6 +113,18 @@ class Survey
     public function setRestaurant(?Restaurant $restaurant): self
     {
         $this->restaurant = $restaurant;
+
+        return $this;
+    }
+
+    public function getOwnFood(): ?bool
+    {
+        return $this->ownFood;
+    }
+
+    public function setOwnFood(bool $ownFood): self
+    {
+        $this->ownFood = $ownFood;
 
         return $this;
     }

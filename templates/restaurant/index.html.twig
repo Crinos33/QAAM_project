@@ -16,7 +16,7 @@
 
     <h1>Restaurant index</h1>
 
-    <table class="table">
+    <table class="table table-dark table-hover">
         <thead>
         <tr>
             <th>Id</th>
@@ -34,8 +34,8 @@
         <tbody>
         {% for restaurant in restaurants %}
             <tr>
-                <td>{{ restaurant.id }}</td>
-                <td>{{ restaurant.name }}</td>
+                <td><p style="color:#0fff06;font-weight:bold;">{{ restaurant.id }}</p></td>
+                <td><p style="color:#fff902;font-weight:bold;">{{ restaurant.name }}</p></td>
                 <td>{{ restaurant.address }}</td>
                 <td>{{ restaurant.lat }}</td>
                 <td>{{ restaurant.lng }}</td>
@@ -45,7 +45,7 @@
                 <td>{{ restaurant.isAshop ? 'Yes' : 'No' }}</td>
                 <td>
                     <a href="{{ path('restaurant_show', {'id': restaurant.id}) }}">show</a>
-                    <a href="{{ path('restaurant_edit', {'id': restaurant.id}) }}">edit</a>
+                    <a class="btn btn-warning" style="color:#000000" href="{{ path('restaurant_edit', {'id': restaurant.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -56,7 +56,7 @@
         </tbody>
     </table>
 
-    <a href="{{ path('restaurant_new') }}">Create new</a>
+    <a class="btn btn-dark" style="color: #F5871F" href="{{ path('restaurant_new') }}">Create new</a>
 {% endblock %}
 {% block javascripts %}
 

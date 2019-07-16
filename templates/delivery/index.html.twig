@@ -5,7 +5,7 @@
 {% block body %}
     <h1>Delivery index</h1>
 
-    <table class="table">
+    <table class="table table-dark table-hover">
         <thead>
             <tr>
                 <th>Id</th>
@@ -18,13 +18,13 @@
         <tbody>
         {% for delivery in deliveries %}
             <tr>
-                <td>{{ delivery.id }}</td>
-                <td>{{ delivery.name }}</td>
+                <td><p style="color:#0fff06;font-weight:bold;">{{ delivery.id }}</p></td>
+                <td><p style="color:#fff902;font-weight:bold;">{{ delivery.name }}</p></td>
                 <td>{{ delivery.value }}</td>
                 <td>{{ delivery.definition }}</td>
                 <td>
                     <a href="{{ path('delivery_show', {'id': delivery.id}) }}">show</a>
-                    <a href="{{ path('delivery_edit', {'id': delivery.id}) }}">edit</a>
+                    <a class="btn btn-warning" style="color:#000000" href="{{ path('delivery_edit', {'id': delivery.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -35,5 +35,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('delivery_new') }}">Create new</a>
+    <a class="btn btn-dark" style="color: #F5871F" href="{{ path('delivery_new') }}">Create new</a>
 {% endblock %}

@@ -5,7 +5,7 @@
 {% block body %}
     <h1>Status index</h1>
 
-    <table class="table">
+    <table class="table table-dark table-hover">
         <thead>
             <tr>
                 <th>Id</th>
@@ -17,12 +17,12 @@
         <tbody>
         {% for status in statuses %}
             <tr>
-                <td>{{ status.id }}</td>
-                <td>{{ status.name }}</td>
+                <td><p style="color:#0fff06;font-weight:bold;">{{ status.id }}</p></td>
+                <td><p style="color:#fff902;font-weight:bold;">{{ status.name }}</p></td>
                 <td>{{ status.value }}</td>
                 <td>
                     <a href="{{ path('status_show', {'id': status.id}) }}">show</a>
-                    <a href="{{ path('status_edit', {'id': status.id}) }}">edit</a>
+                    <a class="btn btn-warning" style="color:#000000" href="{{ path('status_edit', {'id': status.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -33,5 +33,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('status_new') }}">Create new</a>
+    <a class="btn btn-dark" style="color: #F5871F" href="{{ path('status_new') }}">Create new</a>
 {% endblock %}
