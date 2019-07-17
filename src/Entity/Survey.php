@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\SurveyRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Survey
 {
@@ -50,6 +51,12 @@ class Survey
      * @ORM\Column(type="boolean")
      */
     private $ownFood;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\OptionSurvey")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $optionSurvey;
 
 
     public function getId(): ?int
@@ -127,6 +134,39 @@ class Survey
         $this->ownFood = $ownFood;
 
         return $this;
+    }
+
+    public function getOptionSurvey(): ?OptionSurvey
+    {
+        return $this->optionSurvey;
+    }
+
+    public function setOptionSurvey(?OptionSurvey $optionSurvey): self
+    {
+        $this->optionSurvey = $optionSurvey;
+
+        return $this;
+    }
+
+    /**
+     * Gets triggered only on insert
+
+     * @ORM\PrePersist
+     */
+    public function onPrePersist()
+    {
+        $this->createdAt = new \DateTime("now");
+        $this->updatedAt = new \DateTime("now");
+    }
+
+    /**
+     * Gets triggered every time on update
+
+     * @ORM\PreUpdate
+     */
+    public function onPreUpdate()
+    {
+        $this->updatedAt = new \DateTime("now");
     }
 
 }

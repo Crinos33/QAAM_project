@@ -156,12 +156,12 @@ class Restaurant
         return $this;
     }
 
-    public function getIsashop(): ?bool
+    public function getIsAshop(): ?bool
     {
         return $this->isAshop;
     }
 
-    public function setIsashop(bool $isAshop): self
+    public function setIsAshop(bool $isAshop): self
     {
         $this->isAshop = $isAshop;
 

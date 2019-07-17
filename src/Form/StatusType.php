@@ -14,6 +14,7 @@ class StatusType extends AbstractType
         $builder
             ->add('name')
             ->add('value')
+            ->add('definition')
         ;
     }
 

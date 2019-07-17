@@ -5,9 +5,9 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\StatusRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\OptionSurveyRepository")
  */
-class Status
+class OptionSurvey
 {
     /**
      * @ORM\Id()
@@ -27,7 +27,7 @@ class Status
     private $value;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $definition;
 
@@ -65,7 +65,7 @@ class Status
         return $this->definition;
     }
 
-    public function setDefinition(string $definition): self
+    public function setDefinition(?string $definition): self
     {
         $this->definition = $definition;
 

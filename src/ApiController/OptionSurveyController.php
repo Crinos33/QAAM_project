@@ -4,7 +4,9 @@
 
 namespace App\ApiController;
 
-use App\Repository\StatusRepository;
+use App\Repository\OptionSurveyRepository;
+use App\Repository\RestaurantRepository;
+use App\Repository\SurveyRepository;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
@@ -14,22 +16,22 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 
 /**
- * @Rest\Route("/status", host="api.qaam.fr")
+ * @Rest\Route("/option", host="api.qaam.fr")
  */
-class StatusController extends AbstractFOSRestController
+class OptionSurveyController extends AbstractFOSRestController
 {
     /**
      * @Rest\Get(
-     * path = "/",
-     * name="status_list_api",
+     * path = "/survey",
+     * name="option_survey_list_api",
      * )
      * @Rest\View()
      */
-    public function index(StatusRepository $statusrepository): View
+    public function index(OptionSurveyRepository $optionSurveyRepository): View
     {
-        $status = $statusrepository->findAll();
-        $status = $this->normalize($status);
-        return View::create($status,Response::HTTP_OK);
+        $options = $optionSurveyRepository->findAll();
+        $options = $this->normalize($options);
+        return View::create($options,Response::HTTP_OK);
     }
     private function normalize($object)
     {
@@ -40,6 +42,7 @@ class StatusController extends AbstractFOSRestController
                 'id',
                 'name',
                 'value',
+                'definition',
             ]]);
         return $object;
     }
