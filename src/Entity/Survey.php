@@ -54,7 +54,7 @@ class Survey
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\OptionSurvey")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $optionSurvey;
 

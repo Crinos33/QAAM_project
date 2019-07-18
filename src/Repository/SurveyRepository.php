@@ -19,6 +19,30 @@ class SurveyRepository extends ServiceEntityRepository
         parent::__construct($registry, Survey::class);
     }
 
+    public function findAllForToday($value)
+    {
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.createdAt LIKE :val')
+            ->setParameter('val', $value."%")
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    public function findOneForMeToday($value, $userId)
+    {
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.createdAt LIKE :val')
+            ->andWhere('s.user = :userid')
+            ->setParameter('val', $value."%")
+            ->setParameter('userid', $userId)
+            ->orderBy('s.createdAt', 'DESC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult()
+            ;
+    }
+
     // /**
     //  * @return Survey[] Returns an array of Survey objects
     //  */
