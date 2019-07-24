@@ -165,7 +165,12 @@ class SurveyController extends AbstractFOSRestController
         $object = $serializer->normalize($object, null,
             ['attributes' => [
                 'id',
-                'optionSurvey',
+                'optionSurvey' => [
+                    'id',
+                    'name',
+                    'value',
+                    'definition'
+                ],
                 'ownFood',
                 'user' => [
                     'id',
@@ -176,7 +181,11 @@ class SurveyController extends AbstractFOSRestController
                     'id',
                     'name'
                 ],
-                'status',
+                'status' => [
+                    'id',
+                    'name',
+                    'value'
+                ],
                 'createdAt',
                 'updatedAt',
             ]]);
