@@ -59,6 +59,24 @@ class SurveyController extends AbstractFOSRestController
     }
 
     /**
+     * @Rest\Get(
+     * path = "/all/me",
+     * name="survey_all_for_me_api",
+     * )
+     * @Rest\View()
+     */
+    public function AllSurveyForMe(SurveyRepository $surveyRepository): View
+    {
+        $user = $this->getUser();
+
+        $surveys = $surveyRepository->findAllForMe($user->getId());
+        $surveys = $this->normalize($surveys);
+        return View::create($surveys,Response::HTTP_OK);
+    }
+
+
+
+    /**
      * @Rest\Post(
      * path = "/new",
      * name="create_survey_for_today_api",

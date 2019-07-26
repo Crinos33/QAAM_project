@@ -43,6 +43,16 @@ class SurveyRepository extends ServiceEntityRepository
             ;
     }
 
+    public function findAllForMe($userId) {
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.user = :userid')
+            ->setParameter('userid', $userId)
+            ->orderBy('s.createdAt', 'DESC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     // /**
     //  * @return Survey[] Returns an array of Survey objects
     //  */
