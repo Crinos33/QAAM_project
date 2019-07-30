@@ -13,6 +13,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use FOS\UserBundle\Model\UserManagerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 /**
  * @Rest\Route("/auth", host="api.qaam.fr")
@@ -61,7 +63,16 @@ class AuthController extends AbstractFOSRestController
      */
     public function profile()
     {
-        return View::create($this->getUser(), response::HTTP_OK);
+        $user= $this->getUser();
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $object = $serializer->normalize($user, null,
+            ['attributes' => [
+                'id',
+                'username',
+                'email'
+                ]
+            ]);
+        return View::create($object, response::HTTP_OK);
     }
 
 }

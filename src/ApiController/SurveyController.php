@@ -124,6 +124,8 @@ class SurveyController extends AbstractFOSRestController
         $em->persist($survey);
         $em->flush();
 
+
+        $survey = $this->normalize($survey);
         return View::create($survey,Response::HTTP_CREATED);
     }
 
@@ -173,6 +175,8 @@ class SurveyController extends AbstractFOSRestController
         $em->persist($survey);
         $em->flush();
 
+
+        $survey = $this->normalize($survey);
         return View::create($survey,Response::HTTP_OK);
     }
 
